@@ -134,39 +134,6 @@ void computeEigenvalues(float *hgrad, float *vgrad, int image_width, int image_h
 
 __global__ 
 void computeCorners(float *corners, int *corner_indices, int image_width, int image_height, int block_width) {
-    /* Original Implementation */
-    /*
-    extern __shared__ struct dataWrapperT shr_wrapper[]; 
-    int localidx = threadIdx.x, localidy = threadIdx.y; 
-    int globalidx = localidx + blockIdx.x * blockDim.x;
-    int globalidy = localidy + blockIdx.y * blockDim.y; 
-
-    shr_wrapper[localidx * block_width + localidy] = wrapped_eigs[globalidx * image_width + globalidy];  
-
-    __syncthreads(); 
-
-    for(int s=((blockDim.x * blockDim.y) / 2); s > 0; s >>= 1) {
-        if((localidx * block_width + localidx) >= s) {
-            continue; 
-        }
-        if(shr_wrapper[localidx * block_width + localidy].data > shr_wrapper[(localidx * block_width + localidy) +
-                s].data) {
-            shr_wrapper[localidx * block_width + localidy] = shr_wrapper[(localidx * block_width + localidy)]; 
-            __syncthreads();
-        } 
-        else {
-            shr_wrapper[localidx * block_width + localidy] = shr_wrapper[(localidx * block_width + localidy) + s]; 
-            __syncthreads();
-        }
-    }
-
-    if(localidx == 0 && localidy == 0) {
-        max_block_eigs[blockIdx.x * (image_width / block_width) + blockIdx.y] = shr_wrapper[localidx * block_width + localidy];  
-    }
-
-    return;
-    */ 
-    /* Implementation with help from Dr. Pallipuram */ 
     int locali = threadIdx.x;
     int localj = threadIdx.y;
     int globali = threadIdx.x + blockIdx.x * blockDim.x;
