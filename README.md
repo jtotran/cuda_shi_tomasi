@@ -1,2 +1,2 @@
-# cuda_shi_tomasi
+# CUDA Shi Tomasi
 CUDA Shi Tomasi
