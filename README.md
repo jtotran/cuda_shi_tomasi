@@ -1,6 +1,7 @@
 # CUDA Shi Tomasi
 Contents
-________
+_________
+
 * CUDA Shi Tomasi 
 * CUDA Shi Tomasi (Approximation) 
 * Analysis
